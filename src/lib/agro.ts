@@ -71,9 +71,10 @@ export function pctChange(latest: number, previous: number) {
 }
 
 export function toCsv(rows: Record<string, string | number>[]) {
-  if (rows.length === 0) return "";
-  const headers = Object.keys(rows[0]);
-  const escape = (value: string | number) => {
+  const first = rows[0];
+  if (!first) return "";
+  const headers = Object.keys(first);
+  const escape = (value: string | number | undefined) => {
     const s = String(value ?? "");
     return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
